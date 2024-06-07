@@ -1,9 +1,9 @@
 :root {
     /*global colors for whole page */
     --primary: #F48B9F; /*home section left side color + primary colors of page*/
-    --primaryLight: #4400ff; /*not used in home page*/
-    --secondary: #ff0000; /*not used in home page*/
-    --secondaryLight: #00ff00; /*not used in home page*/
+    --primaryLight: #4400ff; 
+    --secondary: #ff0000; 
+    --secondaryLight: #00ff00; 
     --headerColor: #000000; /*global header colors - black*/
     --bodyTextColor: #ffffff; /*black*/
     --bodyTextColorWhite: #ffffff;
