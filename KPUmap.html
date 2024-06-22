@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Info 4235 Midterm Annze Villena 06/21/24  -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPU Library Map - Annze Villena</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" /> <!--library for leaflet -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script> <!--java script for leaflet-->
+</head>
+<body>
+
+    <!-- fixed responsive nav bar -->
+    <nav id="navbar">
+        <div class="logo">
+            <!-- AV initials logo-->
+            <img src="img/avlogo.png" alt="Logo"> 
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="KPUmap.html">KPU Map</a></li>
+        </ul>
+    </nav>
+    
+    
+    <!--Template , basic responsiveness -->
+    <section id="hero-1946">
+        <div class="cs-container">
+            <h2 class="cs-title">KPU Surrey Library Location</h2>
+            <div id="map"></div>
+            <p id="distance"></p>
+        </div>
+    </section>
+
+
+
+    <script>
+
+        //exact location of kpu library - obtained from google maps
+        const libraryLocation = { lat: 49.13217996255364, lng: -122.87140053127139 };
+        
+        // Map from Leftlet library to initilaize  & street map to display
+        const map = L.map('map').setView([libraryLocation.lat, libraryLocation.lng], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        //label for exact location for KPU library Surrey
+        const libraryMarker = L.marker([libraryLocation.lat, libraryLocation.lng]).addTo(map)
+            .bindPopup(' The KPU Surrey Library').openPopup();
+        
+        //error checks for location requesting
+        //common message to request for location access - unless other wise error popup
+        function showError(error) {
+            console.warn(`ERROR(${error.code}): ${error.message}`);
+        }
+
+        //Java script Geolocation 
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(currentPosition, showError);
+        } else {
+            alert('Geolocation not supported.');
+        }
+
+        //reference calculation
+        function DistancefromKPU(lat1, lon1, lat2, lon2) {
+            const R = 6371; // earth radius - km
+            const diLat = (lat2 - lat1) * Math.PI / 180;
+            const diLon = (lon2 - lon1) * Math.PI / 180;
+            const a =
+                0.5 - Math.cos(diLat)/2 + 
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                (1 - Math.cos(diLon)) / 2;
+
+            return R * 2 * Math.asin(Math.sqrt(a)); //return the calculated distance
+        }
+
+        //the users location
+        function currentPosition(position) {
+            const userLocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+            //marker label
+            const userMarker = L.marker([userLocation.lat, userLocation.lng]).addTo(map)
+                .bindPopup('Your Current Location').openPopup();
+
+            map.setView([userLocation.lat, userLocation.lng], 13);
+            
+            //call function calculate distance from marker
+            const distance = DistancefromKPU(userLocation.lat, userLocation.lng, libraryLocation.lat, libraryLocation.lng);
+            document.getElementById('distance').textContent = `Your distance in KM: ${distance.toFixed(2)} km`;
+        }
+
+    </script>
+                                
+<script src="script.js"></script> <!--Java script for nav-->                      
+</body>
+</html>

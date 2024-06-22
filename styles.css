@@ -1,9 +1,9 @@
 :root {
     /*global colors for whole page */
     --primary: #F48B9F; /*home section left side color + primary colors of page*/
-    --primaryLight: #4400ff; 
-    --secondary: #ff0000; 
-    --secondaryLight: #00ff00; 
+    --primaryLight: #4400ff; /*not used in home page*/
+    --secondary: #ff0000; /*not used in home page*/
+    --secondaryLight: #00ff00; /*not used in home page*/
     --headerColor: #000000; /*global header colors - black*/
     --bodyTextColor: #ffffff; /*black*/
     --bodyTextColorWhite: #ffffff;
@@ -927,4 +927,57 @@ nav ul li a:hover {
       margin: 0;
     }
   }
-                                  
+                
+/*Map CSS -Template from Code Stitch for basic responsiveness for any platform*/
+
+#map {
+  height: 600px;
+  width: 100%;
+}
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+  #hero-1946 {
+    padding: var(--sectionPadding);
+    /* 160px - 200px */
+    padding-top: clamp(10rem, 20vw, 12.5rem);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+  }
+  #hero-1946 .cs-container {
+    width: 100%;
+    max-width: 80rem;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  #hero-1946 .cs-title {
+    /* 39px - 61px */
+    font-size: clamp(2.438rem, 5vw, 3.813rem);
+  }
+
+}
+
+/* Small Desktop - 1024px */
+@media only screen and (min-width: 64rem) {
+  #hero-1946 .cs-title {
+    max-width: 46.875rem;
+  }
+
+}
+/* Large Desktop 1300px */
+@media only screen and (min-width: 81.25rem) {
+  #hero-1946 .cs-title {
+    margin: 0;
+  }
+  #hero-1946 .cs-container {
+    flex-direction: column;
+  }
+
+}
+                                
